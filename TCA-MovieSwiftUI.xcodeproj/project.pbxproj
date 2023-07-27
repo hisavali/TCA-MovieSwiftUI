@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F0141822A3B82F900A03DC6 /* FjallaOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5F01417F2A3B82F900A03DC6 /* FjallaOne-Regular.ttf */; };
+		5F0141832A3B82F900A03DC6 /* American Captain.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5F0141802A3B82F900A03DC6 /* American Captain.otf */; };
+		5F0141842A3B82F900A03DC6 /* FHACondFrenchNC.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5F0141812A3B82F900A03DC6 /* FHACondFrenchNC.otf */; };
 		5F662CDA2A393EE900A6D168 /* TCA_MovieSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F662CD92A393EE900A6D168 /* TCA_MovieSwiftUIApp.swift */; };
 		5F662CDC2A393EE900A6D168 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F662CDB2A393EE900A6D168 /* ContentView.swift */; };
 		5F662CDE2A393EEA00A6D168 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F662CDD2A393EEA00A6D168 /* Assets.xcassets */; };
@@ -14,11 +17,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5F01417D2A3B81E100A03DC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5F01417F2A3B82F900A03DC6 /* FjallaOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FjallaOne-Regular.ttf"; sourceTree = "<group>"; };
+		5F0141802A3B82F900A03DC6 /* American Captain.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "American Captain.otf"; sourceTree = "<group>"; };
+		5F0141812A3B82F900A03DC6 /* FHACondFrenchNC.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FHACondFrenchNC.otf; sourceTree = "<group>"; };
 		5F662CD62A393EE900A6D168 /* TCA-MovieSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TCA-MovieSwiftUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F662CD92A393EE900A6D168 /* TCA_MovieSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCA_MovieSwiftUIApp.swift; sourceTree = "<group>"; };
 		5F662CDB2A393EE900A6D168 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5F662CDD2A393EEA00A6D168 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F662CE02A393EEA00A6D168 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5F662CF72A393F7C00A6D168 /* MovieKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MovieKit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,9 +40,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5F01417E2A3B82F900A03DC6 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				5F01417F2A3B82F900A03DC6 /* FjallaOne-Regular.ttf */,
+				5F0141802A3B82F900A03DC6 /* American Captain.otf */,
+				5F0141812A3B82F900A03DC6 /* FHACondFrenchNC.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		5F662CCD2A393EE900A6D168 = {
 			isa = PBXGroup;
 			children = (
+				5F662CF72A393F7C00A6D168 /* MovieKit */,
 				5F662CD82A393EE900A6D168 /* TCA-MovieSwiftUI */,
 				5F662CD72A393EE900A6D168 /* Products */,
 			);
@@ -51,6 +70,8 @@
 		5F662CD82A393EE900A6D168 /* TCA-MovieSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				5F01417E2A3B82F900A03DC6 /* Fonts */,
+				5F01417D2A3B81E100A03DC6 /* Info.plist */,
 				5F662CD92A393EE900A6D168 /* TCA_MovieSwiftUIApp.swift */,
 				5F662CDB2A393EE900A6D168 /* ContentView.swift */,
 				5F662CDD2A393EEA00A6D168 /* Assets.xcassets */,
@@ -125,8 +146,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F0141842A3B82F900A03DC6 /* FHACondFrenchNC.otf in Resources */,
 				5F662CE12A393EEA00A6D168 /* Preview Assets.xcassets in Resources */,
 				5F662CDE2A393EEA00A6D168 /* Assets.xcassets in Resources */,
+				5F0141822A3B82F900A03DC6 /* FjallaOne-Regular.ttf in Resources */,
+				5F0141832A3B82F900A03DC6 /* American Captain.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +293,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"TCA-MovieSwiftUI/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "TCA-MovieSwiftUI/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -297,6 +322,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"TCA-MovieSwiftUI/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "TCA-MovieSwiftUI/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
