@@ -6,12 +6,13 @@ import PackageDescription
 let package = Package(
     name: "MovieKit",
     platforms: [
-        .iOS(.v14)
+        .iOS(.v15)
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(name: "Common",targets: ["Common"]),
         .library(name: "Data",targets: ["Data"]),
+        .library(name: "NetworkClient",targets: ["NetworkClient"]),
         .library(name: "HomeFeature",targets: ["HomeFeature"])
     ],
     dependencies: [
@@ -40,7 +41,14 @@ let package = Package(
             dependencies: [
                 "Common",
                 "Data",
+                "NetworkClient",
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+            ]
+        ),
+        .target(
+            name: "NetworkClient",
+            dependencies: [
+                .product(name: "DependenciesAdditions", package: "swift-dependencies-additions")
             ]
         ),
         .testTarget(

@@ -13,7 +13,7 @@ public struct Movie: Codable, Equatable, Identifiable {
     }
 
     public let overview: String
-    let poster_path: String?
+    public let poster_path: String?
     let backdrop_path: String?
     public let popularity: Float
     let vote_average: Float
@@ -70,25 +70,25 @@ public struct Movie: Codable, Equatable, Identifiable {
     }
 
     public struct Builder {
-        var id: Tagged<Movie, UUID> = .init()
-        var original_title: String = ""
-        var title: String = ""
-        var overview: String = ""
-        var poster_path: String? = nil
-        var backdrop_path: String? = nil
-        var popularity: Float = 0
-        var vote_average: Float = 0
-        var vote_count: Int = 0
-        var release_date: String? = nil
-        var genres: [Genre]? = nil
-        var runtime: Int? = nil
-        var status: String? = nil
-        var video: Bool = false
-        var keywords: Keywords? = nil
-        var images: MovieImages? = nil
-        var production_countries: [ProductionCountry]? = nil
-        var character: String? = nil
-        var department: String? = nil
+        public var id: Tagged<Movie, UUID> = .init()
+        public var original_title: String = ""
+        public var title: String = ""
+        public var overview: String = ""
+        public var poster_path: String? = nil
+        public var backdrop_path: String? = nil
+        public var popularity: Float = 0
+        public var vote_average: Float = 0
+        public var vote_count: Int = 0
+        public var release_date: String? = nil
+        public var genres: [Genre]? = nil
+        public var runtime: Int? = nil
+        public var status: String? = nil
+        public var video: Bool = false
+        public var keywords: Keywords? = nil
+        public var images: MovieImages? = nil
+        public var production_countries: [ProductionCountry]? = nil
+        public var character: String? = nil
+        public var department: String? = nil
 
         func build() -> Movie {
             .init(

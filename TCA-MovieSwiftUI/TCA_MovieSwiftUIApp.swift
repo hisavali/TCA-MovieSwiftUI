@@ -1,17 +1,21 @@
-//
-//  TCA_MovieSwiftUIApp.swift
-//  TCA-MovieSwiftUI
-//
-//  Created by Hitesh Savaliya on 14/06/2023.
-//
-
+import Data
+import HomeFeature
 import SwiftUI
 
 @main
 struct TCA_MovieSwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MovieRow(
+                store: .init(
+                    initialState: .init(
+                        movie: Movie.mock,
+                        moviePoster: Image(systemName: "camera.shutter.button")
+                    )
+                ) {
+                    MovieRowFeature()
+                        ._printChanges()
+                })
         }
     }
 }

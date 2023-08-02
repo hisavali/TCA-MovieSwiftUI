@@ -1,31 +1,76 @@
 import ComposableArchitecture
 import Common
 import Data
+import Dependencies
 import Foundation
+import NetworkClient
 import SwiftUI
 
-struct MovieRowFeature: ReducerProtocol {
-    struct State: Equatable {
+public struct MovieRowFeature: ReducerProtocol {
+    public static let defaultPosterName = "camera.shutter.button"
+    @Dependency(\.imageClient) var imageClient
+    public struct State: Equatable {
         var movie: Movie
-    }
+        var moviePoster: Image
+        var isMoviePosterLoading: Bool
 
-    enum Action: Equatable {}
-
-    var body: some ReducerProtocolOf<Self> {
-        Reduce<State, Action> { state, action in
-            return .none
+        public init(
+            movie: Movie,
+            moviePoster: Image = .init(systemName: defaultPosterName),
+            isMoviePosterLoading: Bool = false
+        ) {
+            self.movie = movie
+            self.moviePoster = moviePoster
+            self.isMoviePosterLoading = isMoviePosterLoading
         }
     }
+
+    public enum Action: Equatable {
+        case onTask
+        case didFetchImage(Image)
+    }
+
+    public enum MovieRowError: Error {
+        case invalidPosterName
+    }
+
+    public var body: some ReducerProtocolOf<Self> {
+        Reduce<State, Action> { state, action in
+            switch action {
+            case .onTask:
+                state.isMoviePosterLoading = true
+                return .run { [imageName = state.movie.poster_path] send in
+                    do {
+                        guard let imageName = imageName else { throw MovieRowError.invalidPosterName }
+                        let image = try await imageClient.fetchImage(imageName, .medium)
+                        await send(.didFetchImage(image))
+                    } catch {
+                        return await send(.didFetchImage(.init(systemName: Self.defaultPosterName)))
+                    }
+                }
+            case let .didFetchImage(image):
+                state.isMoviePosterLoading = false
+                state.moviePoster = image
+                return .none
+            }
+        }
+    }
+
+    public init() { }
 }
 
-struct MovieRow: View {
+public struct MovieRow: View {
     let store: StoreOf<MovieRowFeature>
 
-    var body: some View {
+    public init(store: StoreOf<MovieRowFeature>) {
+        self.store = store
+    }
+
+    public var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             HStack {
                 ZStack(alignment: .topLeading) {
-                    Image(systemName: "camera.shutter.button")
+                    viewStore.moviePoster
                         .resizable()
                         .renderingMode(.original)
                         .fixedSize()
@@ -57,7 +102,10 @@ struct MovieRow: View {
                     Text("Add to favourite") // TODO: Add
                 }
             }
-            .redacted(reason: .placeholder)
+            .redacted(reason: viewStore.isMoviePosterLoading ? .placeholder : [])
+            .task {
+                await viewStore.send(.onTask).finish()
+            }
         }
     }
 }
@@ -65,8 +113,15 @@ struct MovieRow: View {
 struct MovieRow_Previews: PreviewProvider {
     static var previews: some View {
         List {
-            MovieRow(store: .init(initialState: .init(movie: .mock)) {
+            MovieRow(
+                store: .init(
+                    initialState: .init(
+                        movie: .mock,
+                        moviePoster: .init(systemName: MovieRowFeature.defaultPosterName)
+                    )
+            ) {
                 MovieRowFeature()
+                    ._printChanges()
             })
         }
     }

@@ -14,6 +14,10 @@
 		5F662CDC2A393EE900A6D168 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F662CDB2A393EE900A6D168 /* ContentView.swift */; };
 		5F662CDE2A393EEA00A6D168 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F662CDD2A393EEA00A6D168 /* Assets.xcassets */; };
 		5F662CE12A393EEA00A6D168 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F662CE02A393EEA00A6D168 /* Preview Assets.xcassets */; };
+		5FA8B07B2A78EF6000AA8483 /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = 5FA8B07A2A78EF6000AA8483 /* Common */; };
+		5FA8B07D2A78EF6000AA8483 /* Data in Frameworks */ = {isa = PBXBuildFile; productRef = 5FA8B07C2A78EF6000AA8483 /* Data */; };
+		5FA8B07F2A78EF6000AA8483 /* HomeFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 5FA8B07E2A78EF6000AA8483 /* HomeFeature */; };
+		5FA8B0812A78EF6000AA8483 /* NetworkClient in Frameworks */ = {isa = PBXBuildFile; productRef = 5FA8B0802A78EF6000AA8483 /* NetworkClient */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +38,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FA8B07D2A78EF6000AA8483 /* Data in Frameworks */,
+				5FA8B07B2A78EF6000AA8483 /* Common in Frameworks */,
+				5FA8B0812A78EF6000AA8483 /* NetworkClient in Frameworks */,
+				5FA8B07F2A78EF6000AA8483 /* HomeFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +64,7 @@
 				5F662CF72A393F7C00A6D168 /* MovieKit */,
 				5F662CD82A393EE900A6D168 /* TCA-MovieSwiftUI */,
 				5F662CD72A393EE900A6D168 /* Products */,
+				5FA8B0792A78EF6000AA8483 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -88,6 +97,13 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		5FA8B0792A78EF6000AA8483 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -104,6 +120,12 @@
 			dependencies = (
 			);
 			name = "TCA-MovieSwiftUI";
+			packageProductDependencies = (
+				5FA8B07A2A78EF6000AA8483 /* Common */,
+				5FA8B07C2A78EF6000AA8483 /* Data */,
+				5FA8B07E2A78EF6000AA8483 /* HomeFeature */,
+				5FA8B0802A78EF6000AA8483 /* NetworkClient */,
+			);
 			productName = "TCA-MovieSwiftUI";
 			productReference = 5F662CD62A393EE900A6D168 /* TCA-MovieSwiftUI.app */;
 			productType = "com.apple.product-type.application";
@@ -363,6 +385,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5FA8B07A2A78EF6000AA8483 /* Common */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Common;
+		};
+		5FA8B07C2A78EF6000AA8483 /* Data */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Data;
+		};
+		5FA8B07E2A78EF6000AA8483 /* HomeFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HomeFeature;
+		};
+		5FA8B0802A78EF6000AA8483 /* NetworkClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NetworkClient;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5F662CCE2A393EE900A6D168 /* Project object */;
 }

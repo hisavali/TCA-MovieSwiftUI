@@ -1,12 +1,6 @@
-//
-//  ContentView.swift
-//  TCA-MovieSwiftUI
-//
-//  Created by Hitesh Savaliya on 14/06/2023.
-//
-
 import SwiftUI
 import MovieKit
+import HomeFeature
 
 struct ContentView: View {
     var body: some View {
