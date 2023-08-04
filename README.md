@@ -1,5 +1,5 @@
 # TCA-MovieSwiftUI
-The Composable Architecture applied MovieSwiftUI codebase [here](https://github.com/Dimillian/MovieSwiftUI)
+The Composable Architecture applied to MovieSwiftUI codebase [here](https://github.com/Dimillian/MovieSwiftUI)
 
 # The Composable Architecture (TCA)
 In iOS eco-system, there are few architectural concepts -- MVVM, VIPER or [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) -- that are used to build mobile applications for Apples' devices.
