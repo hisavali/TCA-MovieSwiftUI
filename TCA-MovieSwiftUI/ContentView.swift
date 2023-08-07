@@ -1,5 +1,4 @@
 import SwiftUI
-import MovieKit
 import HomeFeature
 
 struct ContentView: View {

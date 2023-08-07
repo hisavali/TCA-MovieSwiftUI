@@ -3,7 +3,7 @@ import Foundation
 import Tagged
 
 public struct Movie: Codable, Equatable, Identifiable {
-    public let id: Tagged<Self, UUID>
+    public let id: Int//Tagged<Self, UUID>
     let original_title: String
     let title: String
     public var userTitle: String {
@@ -70,7 +70,7 @@ public struct Movie: Codable, Equatable, Identifiable {
     }
 
     public struct Builder {
-        public var id: Tagged<Movie, UUID> = .init()
+        public var id: Int = 0//Tagged<Movie, UUID> = .init()
         public var original_title: String = ""
         public var title: String = ""
         public var overview: String = ""
@@ -119,7 +119,7 @@ public struct Movie: Codable, Equatable, Identifiable {
 
 extension Movie {
     public static let mock: Movie = .build {
-        $0.id = .init(.init(0))
+        $0.id = 0//.init(.init(0))
         $0.original_title = "Test movie Test movie Test movie Test movie Test movie Test movie Test movie "
         $0.title = "Test movie Test movie Test movie Test movie Test movie Test movie Test movie  Test movie Test movie Test movie"
         $0.overview = "Test desc"

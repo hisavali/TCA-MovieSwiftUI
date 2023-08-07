@@ -48,6 +48,7 @@ let package = Package(
         .target(
             name: "NetworkClient",
             dependencies: [
+                "Data",
                 .product(name: "DependenciesAdditions", package: "swift-dependencies-additions")
             ]
         ),
