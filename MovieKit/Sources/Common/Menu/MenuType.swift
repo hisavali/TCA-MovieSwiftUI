@@ -1,19 +1,24 @@
 import Foundation
 
-enum MenuType: Int, CaseIterable {
-    case nowPlaying, upcoming, trending, popular, topRated, genres
+enum MenuType: String, CaseIterable {
+    case nowPlaying
+    case upcoming
+    case trending
+    case popular
+    case topRated
+    case genres
 
-    func title() -> String {
+    var title: String {
         switch self {
+        case .nowPlaying: return "Now Playing"
+        case .upcoming: return "Upcoming"
+        case .trending: return "Trending"
         case .popular: return "Popular"
         case .topRated: return "Top Rated"
-        case .upcoming: return "Upcoming"
-        case .nowPlaying: return "Now Playing"
-        case .trending: return "Trending"
         case .genres: return "Genres"
         }
     }
-
+}
 
 //    func endpoint() -> APIService.Endpoint {
 //        switch self {
@@ -25,5 +30,4 @@ enum MenuType: Int, CaseIterable {
 //        case .genres: return APIService.Endpoint.genres
 //        }
 //    }
-}
 

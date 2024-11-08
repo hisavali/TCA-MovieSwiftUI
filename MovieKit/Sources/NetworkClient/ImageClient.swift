@@ -22,7 +22,6 @@ public struct ImageClient {
             return .init(url: url.appendingPathComponent(poster))
         }
     }
-
     public var fetchImage: @Sendable (String, Size) async throws -> Image
 }
 
@@ -35,9 +34,13 @@ extension ImageClient: DependencyKey {
                 throw ImageClientError.invalidImageResponse
             }
 
+            try await Task.sleep(nanoseconds: NSEC_PER_SEC * 2)
+
             return Image.init(uiImage: uiImage)
         }
     }
+    //static public var testValue: ImageClient {}
+    //static public var previewValue: ImageClient {}
 }
 
 extension DependencyValues {

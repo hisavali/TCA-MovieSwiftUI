@@ -33,7 +33,7 @@ public struct PaginatedResponse<T: Codable>: Codable {
         }
     }
 
-    public func build(_ set: @escaping (inout Builder) -> Void) -> Self {
+    static public func build(_ set: @escaping (inout Builder) -> Void) -> Self {
         var builder = Builder()
         set(&builder)
         return builder.build()

@@ -17,7 +17,8 @@ public struct MovieRowFeature: ReducerProtocol {
         public init(
             movie: Movie,
             moviePoster: Image = .init(systemName: defaultPosterName),
-            isMoviePosterLoading: Bool = false
+            isMoviePosterLoading: Bool = false//,
+            //imageClient: ImageClient = ???
         ) {
             self.movie = movie
             self.moviePoster = moviePoster
