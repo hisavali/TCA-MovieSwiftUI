@@ -3,7 +3,8 @@ import Dependencies
 import Foundation
 import SwiftUI
 
-public struct MoviesHomeFeature: ReducerProtocol {
+@Reducer
+public struct MoviesHomeFeature {
     @Dependency(\.fetchNowPlayingMoviesClient.get) var fetchClient
     public struct State: Equatable {
         var mode: HomeMode = .list
@@ -13,7 +14,7 @@ public struct MoviesHomeFeature: ReducerProtocol {
         case onTask
     }
 
-    public var body: some ReducerProtocolOf<Self> {
+    public var body: some ReducerOf<Self> {
         Reduce<State, Action> { state, action in
             switch action {
                 case .onTask:

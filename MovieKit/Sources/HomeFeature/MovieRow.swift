@@ -6,7 +6,8 @@ import Foundation
 import NetworkClient
 import SwiftUI
 
-public struct MovieRowFeature: ReducerProtocol {
+@Reducer
+public struct MovieRowFeature {
     public static let defaultPosterName = "camera.shutter.button"
     @Dependency(\.imageClient) var imageClient
     public struct State: Equatable {
@@ -35,7 +36,7 @@ public struct MovieRowFeature: ReducerProtocol {
         case invalidPosterName
     }
 
-    public var body: some ReducerProtocolOf<Self> {
+    public var body: some ReducerOf<Self> {
         Reduce<State, Action> { state, action in
             switch action {
             case .onTask:
