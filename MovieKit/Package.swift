@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "MovieKit",
     platforms: [
-        .iOS(.v15)
+        .iOS(.v16)
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
@@ -17,9 +17,9 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", from: "1.15.0"),
+        .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", from: "1.25.2"),
         .package(url: "https://github.com/pointfreeco/swift-tagged.git", from: "0.10.0"),
-        .package(url: "https://github.com/tgrapperon/swift-dependencies-additions.git", from: "1.1.0")
+        .package(url: "git@github.com:pointfreeco/swift-dependencies.git", from: "1.11.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -27,8 +27,7 @@ let package = Package(
             name: "Data",
             dependencies: [
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-                .product(name: "Tagged", package: "swift-tagged"),
-                .product(name: "DependenciesAdditions", package: "swift-dependencies-additions")
+                .product(name: "Tagged", package: "swift-tagged")
             ]
         ),
         .target(
@@ -49,7 +48,7 @@ let package = Package(
             name: "NetworkClient",
             dependencies: [
                 "Data",
-                .product(name: "DependenciesAdditions", package: "swift-dependencies-additions")
+                .product(name: "Dependencies", package: "swift-dependencies")
             ]
         ),
         .testTarget(
