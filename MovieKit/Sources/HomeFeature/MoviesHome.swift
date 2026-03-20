@@ -5,19 +5,21 @@ import SwiftUI
 
 @Reducer
 public struct MoviesHomeFeature {
-    @Dependency(\.fetchNowPlayingMoviesClient.get) var fetchClient
-    public struct State: Equatable {
+    @ObservableState
+    public struct State {
         var mode: HomeMode = .list
     }
 
-    public enum Action: Equatable {
+    public enum Action {
         case onTask
     }
 
+    @Dependency(\.fetchNowPlayingMoviesClient.get) var fetchClient
+
     public var body: some ReducerOf<Self> {
-        Reduce<State, Action> { state, action in
+        Reduce { state, action in
             switch action {
-                case .onTask:
+            case .onTask:
                 return .none
             }
         }
@@ -42,11 +44,9 @@ public struct MoviesHome: View {
     }
 
     public var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
-            Text("To do")
-                .task {
-                    await viewStore.send(.onTask).finish()
-                }
-        }
+        Text("To do")
+            .task {
+                store.send(.onTask)
+            }
     }
 }

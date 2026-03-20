@@ -48,13 +48,11 @@ public struct PopularityBadge : View {
     }
 }
 
-struct PopularityBadge_Previews: PreviewProvider {
-    static var previews: some View {
-        VStack {
-            PopularityBadge(score: 10)
-            PopularityBadge(score: 30)
-            PopularityBadge(score: 50)
-            PopularityBadge(score: 80)
-        }
+#Preview {
+    VStack {
+        PopularityBadge(score: 10)
+        PopularityBadge(score: 30)
+        PopularityBadge(score: 50)
+        PopularityBadge(score: 80)
     }
 }

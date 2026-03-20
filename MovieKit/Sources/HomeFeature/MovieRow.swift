@@ -9,8 +9,9 @@ import SwiftUI
 @Reducer
 public struct MovieRowFeature {
     public static let defaultPosterName = "camera.shutter.button"
-    @Dependency(\.imageClient) var imageClient
-    public struct State: Equatable {
+
+    @ObservableState
+    public struct State {
         var movie: Movie
         var moviePoster: Image
         var isMoviePosterLoading: Bool
@@ -18,8 +19,7 @@ public struct MovieRowFeature {
         public init(
             movie: Movie,
             moviePoster: Image = .init(systemName: defaultPosterName),
-            isMoviePosterLoading: Bool = false//,
-            //imageClient: ImageClient = ???
+            isMoviePosterLoading: Bool = false
         ) {
             self.movie = movie
             self.moviePoster = moviePoster
@@ -27,17 +27,21 @@ public struct MovieRowFeature {
         }
     }
 
-    public enum Action: Equatable {
-        case onTask
+    public enum Action {
         case didFetchImage(Image)
+        case onTask
     }
+
+    enum CancelID { case fetchImage }
 
     public enum MovieRowError: Error {
         case invalidPosterName
     }
 
+    @Dependency(\.imageClient) var imageClient
+
     public var body: some ReducerOf<Self> {
-        Reduce<State, Action> { state, action in
+        Reduce { state, action in
             switch action {
             case .onTask:
                 state.isMoviePosterLoading = true
@@ -69,62 +73,59 @@ public struct MovieRow: View {
     }
 
     public var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
-            HStack {
-                ZStack(alignment: .topLeading) {
-                    viewStore.moviePoster
-                        .resizable()
-                        .renderingMode(.original)
-                        .fixedSize()
-                        .animation(.spring())
-                        .transition(.opacity)
-                }
+        HStack {
+            ZStack(alignment: .topLeading) {
+                store.moviePoster
+                    .resizable()
+                    .renderingMode(.original)
+                    .fixedSize()
+                    .animation(.spring, value: store.moviePoster)
+                    .transition(.opacity)
+            }
 
-                VStack(alignment: .leading, spacing: 8) {
-                    Text(viewStore.movie.userTitle)
-                        .titleStyle()
-                        .foregroundColor(.steam_gold)
-                        .lineLimit(2)
-                    HStack {
-                        PopularityBadge(score: Int(viewStore.movie.popularity))
+            VStack(alignment: .leading, spacing: 8) {
+                Text(store.movie.userTitle)
+                    .titleStyle()
+                    .foregroundColor(.steam_gold)
+                    .lineLimit(2)
+                HStack {
+                    PopularityBadge(score: Int(store.movie.popularity))
 
-                        Text(viewStore.movie.releaseDate?.description ?? "Release date")
-                            .font(.subheadline)
-                            .foregroundColor(.primary)
-                    }
-                    Text(viewStore.movie.overview)
-                        .foregroundColor(.secondary)
-                        .lineLimit(13) // TODO: To come from store
-                        .truncationMode(.tail)
-                }.padding(.leading, 16)
-            }
-            .padding()
-            .contextMenu {
-                VStack {
-                    Text("Add to favourite") // TODO: Add
+                    Text(store.movie.releaseDate?.description ?? "Release date")
+                        .font(.subheadline)
+                        .foregroundColor(.primary)
                 }
+                Text(store.movie.overview)
+                    .foregroundColor(.secondary)
+                    .lineLimit(13) // TODO: To come from store
+                    .truncationMode(.tail)
+            }.padding(.leading, 16)
+        }
+        .padding()
+        .contextMenu {
+            VStack {
+                Text("Add to favourite") // TODO: Add
             }
-            .redacted(reason: viewStore.isMoviePosterLoading ? .placeholder : [])
-            .task {
-                await viewStore.send(.onTask).finish()
-            }
+        }
+        .redacted(reason: store.isMoviePosterLoading ? .placeholder : [])
+        .task {
+            store.send(.onTask)
         }
     }
 }
 
-struct MovieRow_Previews: PreviewProvider {
-    static var previews: some View {
-        List {
-            MovieRow(
-                store: .init(
-                    initialState: .init(
-                        movie: .mock,
-                        moviePoster: .init(systemName: MovieRowFeature.defaultPosterName)
-                    )
+#Preview {
+    List {
+        MovieRow(
+            store: Store(
+                initialState: MovieRowFeature.State(
+                    movie: .mock,
+                    moviePoster: Image(systemName: MovieRowFeature.defaultPosterName)
+                )
             ) {
                 MovieRowFeature()
                     ._printChanges()
-            })
-        }
+            }
+        )
     }
 }

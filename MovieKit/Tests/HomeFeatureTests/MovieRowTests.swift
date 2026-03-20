@@ -21,7 +21,7 @@ final class MovieRowTests: XCTestCase {
             $0.isMoviePosterLoading = true
         }
 
-        await store.receive(.didFetchImage(Image(systemName: "figure.play"))) {
+        await store.receive(\.didFetchImage) {
             $0.isMoviePosterLoading = false
             $0.moviePoster = Image(systemName: "figure.play")
         }
@@ -45,7 +45,7 @@ final class MovieRowTests: XCTestCase {
             $0.isMoviePosterLoading = true
         }
 
-        await store.receive(.didFetchImage(Image(systemName: MovieRowFeature.defaultPosterName))) {
+        await store.receive(\.didFetchImage) {
             $0.isMoviePosterLoading = false
             $0.moviePoster = Image(systemName: MovieRowFeature.defaultPosterName)
         }

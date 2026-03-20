@@ -11,14 +11,15 @@ struct TCA_MovieSwiftUIApp: App {
         WindowGroup {
             MovieRow(
                 store: .init(
-                    initialState: .init(
+                    initialState: MovieRowFeature.State(
                         movie: self.movie,
                         moviePoster: Image(systemName: "camera.shutter.button")
                     )
                 ) {
                     MovieRowFeature()
                         ._printChanges()
-                })
+                }
+            )
             .task {
                 do {
                     let r = try await self.fetchMovie()
