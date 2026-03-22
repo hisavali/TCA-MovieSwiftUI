@@ -6,7 +6,7 @@ public struct PaginatedResponse<T: Codable>: Codable {
     public let total_pages: Int?
     public let results: [T]
 
-    init(
+    public init(
         page: Int?,
         total_results: Int?,
         total_pages: Int?,

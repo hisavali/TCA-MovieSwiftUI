@@ -1,6 +1,11 @@
 import Dependencies
 import Foundation
 import SwiftUI
+#if canImport(UIKit)
+import UIKit
+#elseif canImport(AppKit)
+import AppKit
+#endif
 
 public enum ImageClientError: Error {
     case invalidURL
@@ -28,19 +33,20 @@ public struct ImageClient {
 extension ImageClient: DependencyKey {
     public static var liveValue: ImageClient {
         .init { imageName, size in
-            let (data, response) = try await URLSession.shared.data(for: size.path(poster: imageName))
-            _ = response // TODO: Handle error if responsecode is not
+            let (data, _) = try await URLSession.shared.data(for: size.path(poster: imageName))
+            #if canImport(UIKit)
             guard let uiImage = UIImage(data: data) else {
                 throw ImageClientError.invalidImageResponse
             }
-
-            try await Task.sleep(nanoseconds: NSEC_PER_SEC * 2)
-
-            return Image.init(uiImage: uiImage)
+            return Image(uiImage: uiImage)
+            #elseif canImport(AppKit)
+            guard let nsImage = NSImage(data: data) else {
+                throw ImageClientError.invalidImageResponse
+            }
+            return Image(nsImage: nsImage)
+            #endif
         }
     }
-    //static public var testValue: ImageClient {}
-    //static public var previewValue: ImageClient {}
 }
 
 extension DependencyValues {

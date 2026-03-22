@@ -6,34 +6,28 @@ import PackageDescription
 let package = Package(
     name: "MovieKit",
     platforms: [
-        .iOS(.v16)
+        .iOS(.v16),
+        .macOS(.v14),
     ],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
-        .library(name: "Common",targets: ["Common"]),
-        .library(name: "Data",targets: ["Data"]),
-        .library(name: "NetworkClient",targets: ["NetworkClient"]),
-        .library(name: "HomeFeature",targets: ["HomeFeature"])
+        .library(name: "Common", targets: ["Common"]),
+        .library(name: "Data", targets: ["Data"]),
+        .library(name: "NetworkClient", targets: ["NetworkClient"]),
+        .library(name: "HomeFeature", targets: ["HomeFeature"]),
     ],
     dependencies: [
-        // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", from: "1.25.2"),
-        .package(url: "https://github.com/pointfreeco/swift-tagged.git", from: "0.10.0"),
         .package(url: "git@github.com:pointfreeco/swift-dependencies.git", from: "1.11.0"),
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
         .target(
             name: "Data",
-            dependencies: [
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-                .product(name: "Tagged", package: "swift-tagged")
-            ]
+            dependencies: []
         ),
         .target(
             name: "Common",
-            dependencies: [
-            ]
+            dependencies: [],
+            resources: [.process("Media.xcassets")]
         ),
         .target(
             name: "HomeFeature",
@@ -41,20 +35,19 @@ let package = Package(
                 "Common",
                 "Data",
                 "NetworkClient",
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
             ]
         ),
         .target(
             name: "NetworkClient",
             dependencies: [
                 "Data",
-                .product(name: "Dependencies", package: "swift-dependencies")
+                .product(name: "Dependencies", package: "swift-dependencies"),
             ]
         ),
         .testTarget(
             name: "HomeFeatureTests",
             dependencies: ["HomeFeature"]
         ),
-
     ]
 )

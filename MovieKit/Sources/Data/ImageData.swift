@@ -1,6 +1,6 @@
 import Foundation
 
-public struct ImageData: Codable, Equatable, Identifiable {
+public struct ImageData: Codable, Equatable, Identifiable, Sendable {
     public var id: String {
         file_path
     }

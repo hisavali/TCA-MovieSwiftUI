@@ -1,35 +1,17 @@
-import Data
+import ComposableArchitecture
 import HomeFeature
 import SwiftUI
-import Dependencies
 
 @main
 struct TCA_MovieSwiftUIApp: App {
-    @Dependency(\.fetchNowPlayingMoviesClient.get) var fetchMovie
-    @State var movie: Movie = .mock
+    let store = Store(initialState: AppFeature.State()) {
+        AppFeature()
+            ._printChanges()
+    }
+
     var body: some Scene {
         WindowGroup {
-            MovieRow(
-                store: .init(
-                    initialState: MovieRowFeature.State(
-                        movie: self.movie,
-                        moviePoster: Image(systemName: "camera.shutter.button")
-                    )
-                ) {
-                    MovieRowFeature()
-                        ._printChanges()
-                }
-            )
-            .task {
-                do {
-                    let r = try await self.fetchMovie()
-                    // TODO: remove this `task` and move it to parent and it's store
-                    self.movie = r.results.first ?? .mock
-                    print(r)
-                } catch {
-                    print(error)
-                }
-            }
+            AppView(store: store)
         }
     }
 }

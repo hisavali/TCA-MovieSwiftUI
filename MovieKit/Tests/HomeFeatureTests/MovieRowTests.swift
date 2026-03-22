@@ -37,7 +37,6 @@ final class MovieRowTests: XCTestCase {
         ) {
             MovieRowFeature()
         } withDependencies: {
-            // It's important to check that fetchImage isn't called.
             $0.imageClient.fetchImage = unimplemented("FetchImage should never be called")
         }
 
@@ -48,6 +47,28 @@ final class MovieRowTests: XCTestCase {
         await store.receive(\.didFetchImage) {
             $0.isMoviePosterLoading = false
             $0.moviePoster = Image(systemName: MovieRowFeature.defaultPosterName)
+        }
+    }
+
+    func testMoviesListOnTask() async {
+        let movies = [Movie.mock]
+        let store = TestStore(
+            initialState: MoviesList.State(menu: .popular)
+        ) {
+            MoviesList()
+        } withDependencies: {
+            $0.moviesClient.fetchMenuList = { _, _, _ in
+                PaginatedResponse(page: 1, total_results: 1, total_pages: 1, results: movies)
+            }
+        }
+
+        await store.send(.onTask) {
+            $0.isLoading = true
+        }
+
+        await store.receive(\.moviesResponse.success) {
+            $0.isLoading = false
+            $0.movies = movies
         }
     }
 }

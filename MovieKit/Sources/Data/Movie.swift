@@ -1,27 +1,23 @@
-import Dependencies
 import Foundation
-import Tagged
 
-public struct Movie: Codable, Equatable, Identifiable {
-    public let id: Int//Tagged<Self, UUID>
-    let original_title: String
-    let title: String
+public struct Movie: Codable, Equatable, Identifiable, Sendable {
+    public let id: Int
+    public let original_title: String
+    public let title: String
     public var userTitle: String {
-        // TODO: Revisit
-        //return AppUserDefaults.alwaysOriginalTitle ? original_title : title
-        return title
+        title
     }
 
     public let overview: String
     public let poster_path: String?
-    let backdrop_path: String?
+    public let backdrop_path: String?
     public let popularity: Float
-    let vote_average: Float
-    let vote_count: Int
+    public let vote_average: Float
+    public let vote_count: Int
 
-    let release_date: String?
+    public let release_date: String?
     public var releaseDate: Date? {
-        return release_date != nil ? Movie.dateFormatter.date(from: release_date!) : Date()
+        release_date != nil ? Movie.dateFormatter.date(from: release_date!) : Date()
     }
 
     static let dateFormatter: DateFormatter = {
@@ -30,29 +26,29 @@ public struct Movie: Codable, Equatable, Identifiable {
         return formatter
     }()
 
-    let genres: [Genre]?
-    let runtime: Int?
-    let status: String?
-    let video: Bool
+    public let genres: [Genre]?
+    public let runtime: Int?
+    public let status: String?
+    public let video: Bool
 
-    var keywords: Keywords?
-    var images: MovieImages?
+    public var keywords: Keywords?
+    public var images: MovieImages?
 
-    var production_countries: [ProductionCountry]?
+    public var production_countries: [ProductionCountry]?
 
-    var character: String?
-    var department: String?
+    public var character: String?
+    public var department: String?
 
-    public struct Keywords: Codable, Equatable {
-        let keywords: [Keyword]?
+    public struct Keywords: Codable, Equatable, Sendable {
+        public let keywords: [Keyword]?
         public init(keywords: [Keyword]?) {
             self.keywords = keywords
         }
     }
 
-    public struct MovieImages: Codable, Equatable {
-        let posters: [ImageData]?
-        let backdrops: [ImageData]?
+    public struct MovieImages: Codable, Equatable, Sendable {
+        public let posters: [ImageData]?
+        public let backdrops: [ImageData]?
 
         public init(posters: [ImageData]?, backdrops: [ImageData]?) {
             self.posters = posters
@@ -60,9 +56,9 @@ public struct Movie: Codable, Equatable, Identifiable {
         }
     }
 
-    public struct ProductionCountry: Codable, Equatable, Identifiable {
+    public struct ProductionCountry: Codable, Equatable, Identifiable, Sendable {
         public var id: String { name }
-        let name: String
+        public let name: String
 
         public init(name: String) {
             self.name = name
@@ -70,7 +66,7 @@ public struct Movie: Codable, Equatable, Identifiable {
     }
 
     public struct Builder {
-        public var id: Int = 0//Tagged<Movie, UUID> = .init()
+        public var id: Int = 0
         public var original_title: String = ""
         public var title: String = ""
         public var overview: String = ""
@@ -119,9 +115,9 @@ public struct Movie: Codable, Equatable, Identifiable {
 
 extension Movie {
     public static let mock: Movie = .build {
-        $0.id = 0//.init(.init(0))
-        $0.original_title = "Test movie Test movie Test movie Test movie Test movie Test movie Test movie "
-        $0.title = "Test movie Test movie Test movie Test movie Test movie Test movie Test movie  Test movie Test movie Test movie"
+        $0.id = 0
+        $0.original_title = "Test movie"
+        $0.title = "Test movie"
         $0.overview = "Test desc"
         $0.poster_path = "/uC6TTUhPpQCmgldGyYveKRAu8JN.jpg"
         $0.backdrop_path = "/nl79FQ8xWZkhL3rDr1v2RFFR6J0.jpg"
@@ -129,7 +125,7 @@ extension Movie {
         $0.vote_average = 8.9
         $0.vote_count = 1000
         $0.release_date = "1972-03-14"
-        $0.genres = [Genre(id: .init(.init(0)), name: "test")]
+        $0.genres = [Genre(id: 0, name: "test")]
         $0.runtime = 80
         $0.status = "released"
         $0.video = false
